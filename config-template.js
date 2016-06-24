@@ -1,7 +1,8 @@
 var APP_NAME = '';
 var BOT_NAME = '';
-var BOT_TOKEN = ''; // Slack Bot Token
+var BOT_TOKEN = '';       // Slack Bot Token
 var MAIN_CHANNEL_ID = ''; // Main channel for your bot
+var WIKI_URL = '';        // Your wiki search url
 var TEAMS = [
     {
         name: 'Some Team',

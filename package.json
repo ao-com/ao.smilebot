@@ -1,6 +1,6 @@
 {
   "name": "ao.smilebot",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The AO slack bot.",
   "main": "app.js",
   "scripts": {
@@ -13,9 +13,14 @@
     "bunyan": "^1.8.1",
     "lodash": "^4.13.1",
     "moment": "^2.13.0",
-    "repeat": "0.0.6"
+    "repeat": "0.0.6",
+    "sync-request": "^3.0.1"
   },
   "devDependencies": {
     "chai": "^3.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ao-world-plc/ao.smilebot"
   }
 }

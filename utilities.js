@@ -53,3 +53,12 @@ exports.isInt = function(value) {
     x = parseFloat(value);
     return (x | 0) === x;
 };
+
+/**
+ * Parses a given url using a specified regular expression, and returns the results.
+ */
+exports.searchWiki = function(searchTerm) {
+    var request = require('sync-request');
+    var res = request('GET', 'http://google.com');
+    return res.body.toString('utf-8');
+};
