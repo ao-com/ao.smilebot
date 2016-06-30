@@ -1,6 +1,7 @@
 var config = require('./config');
 var logger = require('./logger');
 var moment = require('moment');
+var request = require('request');
 
 /**
  * Sends a message at a given time.
@@ -60,7 +61,16 @@ exports.isInt = function(value) {
  * @param {string} searchTerm - The value to search.
  */
 exports.searchWiki = function(url, searchTerm) {
-    var request = require('sync-request');
-    var res = request('GET', `${url}${searchTerm}`);
-    return res.body.toString('utf-8');
+    var searchPromise = function(resolve, reject) {
+        request(`${url}${searchTerm}`, function(err, res, body) {
+            if (err) {
+                logger.warn(err);
+                reject(err);
+            } else {
+                resolve(body.toString('utf-8'));
+            };
+        });
+    };
+
+    return new Promise(searchPromise);
 };

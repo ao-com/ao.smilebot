@@ -13,18 +13,20 @@ exports.init = function (bot, controller) {
 
     controller.hears(['wiki (.*)', 'docs (.*)'], ['direct_message', 'direct_mention', 'mention'], function (bot, message) {
         var article = message.match[1];
-        var response = utilities.searchWiki(config.WIKI_SEARCH_URL, article);
-        var $ = cheerio.load(response);
-        var links = $(config.WIKI_RESULT_SELECTOR);
 
-        var results = $(links).map(function (i, el) {
-            return $(this).text() + ' ' + config.WIKI_ROOT + encodeURI($(this).attr('href'));
-        }).get().join('\n');
+        utilities.searchWiki(config.WIKI_SEARCH_URL, article).then(function (res) {
+            var $ = cheerio.load(res);
+            var links = $(config.WIKI_RESULT_SELECTOR);
 
-        if (results === '') {
-            bot.reply(message, 'No results!');
-        }
+            var results = $(links).map(function (i, el) {
+                return $(this).text() + ' ' + config.WIKI_ROOT + encodeURI($(this).attr('href'));
+            }).get().join('\n');
 
-        bot.reply(message, results);
+            if (results === '') {
+                bot.reply(message, 'No results!');
+            };
+
+            bot.reply(message, results);
+        });
     });
 };
