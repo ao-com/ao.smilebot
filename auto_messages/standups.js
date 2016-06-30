@@ -38,8 +38,8 @@ exports.standupMessage = function(bot, teamName, time) {
         text: `${teamName} it's time to stand up!`,
         channel: config.MAIN_CHANNEL_ID
     };
+    
     var sendDateTime = this.getNextDateForStandup(now, moment(`${date}T${time}`));
-
     utilities.sayAt(bot, message, sendDateTime);
 };
 
