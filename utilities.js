@@ -55,10 +55,12 @@ exports.isInt = function(value) {
 };
 
 /**
- * Parses a given url using a specified regular expression, and returns the results.
+ * Issues a get request to the specified Url, using the specified search term.
+ * @param {string} url - The url stub to use in the get request.
+ * @param {string} searchTerm - The value to search.
  */
-exports.searchWiki = function(searchTerm) {
+exports.searchWiki = function(url, searchTerm) {
     var request = require('sync-request');
-    var res = request('GET', 'http://google.com');
+    var res = request('GET', `${url}${searchTerm}`);
     return res.body.toString('utf-8');
 };
