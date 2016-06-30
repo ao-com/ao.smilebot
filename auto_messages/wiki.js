@@ -11,22 +11,26 @@ var cheerio = require('cheerio');
 exports.init = function (bot, controller) {
     var _this = this;
 
+    var searchWikiSuccess = function(bot, message, res) {
+        var $ = cheerio.load(res);
+        var links = $(config.WIKI_RESULT_SELECTOR);
+
+        var results = $(links).map(function (i, el) {
+            return $(this).text() + ' ' + config.WIKI_ROOT + encodeURI($(this).attr('href'));
+        }).get().join('\n');
+
+        if (results === '') {
+            bot.reply(message, 'No results!');
+        };
+
+        bot.reply(message, results);
+    };
+
     controller.hears(['wiki (.*)', 'docs (.*)'], ['direct_message', 'direct_mention', 'mention'], function (bot, message) {
         var article = message.match[1];
 
-        utilities.searchWiki(config.WIKI_SEARCH_URL, article).then(function (res) {
-            var $ = cheerio.load(res);
-            var links = $(config.WIKI_RESULT_SELECTOR);
-
-            var results = $(links).map(function (i, el) {
-                return $(this).text() + ' ' + config.WIKI_ROOT + encodeURI($(this).attr('href'));
-            }).get().join('\n');
-
-            if (results === '') {
-                bot.reply(message, 'No results!');
-            };
-
-            bot.reply(message, results);
+        utilities.searchWiki(config.WIKI_SEARCH_URL, article).then(function(res) {
+            searchWikiSuccess(bot, message, res);
         });
     });
 };
