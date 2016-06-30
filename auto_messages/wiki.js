@@ -26,7 +26,7 @@ exports.init = function (bot, controller) {
         bot.reply(message, results);
     };
 
-    controller.hears(['wiki (.*)', 'docs (.*)'], ['direct_message', 'direct_mention', 'mention'], function (bot, message) {
+    controller.hears(['wiki (.*)', 'docs (.*)'], ['direct_message', 'direct_mention', 'mention', 'ambient'], function (bot, message) {
         var article = message.match[1];
 
         utilities.searchWiki(config.WIKI_SEARCH_URL, article).then(function(res) {
