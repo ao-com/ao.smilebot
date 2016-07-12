@@ -39,3 +39,5 @@ jspm_packages
 # Private files
 log.json
 config.js
+*.exe
+daemon/aosmilebot.xml
